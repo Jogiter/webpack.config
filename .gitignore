@@ -1,0 +1,10 @@
+.DS_Store
+Desktop.ini
+._*
+Thumbs.db
+*.log
+node_modules/
+bower_components/
+.deploy*/
+dist
+__dist
