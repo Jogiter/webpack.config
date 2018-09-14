@@ -7,10 +7,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackFtpUpload = require('webpack-ftp-upload-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const isProduction = process.env.NODE_ENV == 'production';
-const { spawn } = require('child_process');
 
-function initWebpackConfig(option, mode) {
+function initWebpackConfig(option, isProduction) {
     let hashDigestLength = option.hashDigestLength;
     let entry = option.entry;
     let template = option.template;
@@ -20,7 +18,7 @@ function initWebpackConfig(option, mode) {
     let __ftp = option.__ftp;
 
     let config = {
-        mode: mode,
+        mode: isProduction ? 'production' : 'development',
         entry: entry,
         output: {
             hashDigestLength: hashDigestLength,
@@ -176,6 +174,7 @@ function initWebpackConfig(option, mode) {
             plugins: [new UglifyJsPlugin()]
         });
     }
+
     config = merge(config, {
         plugins: [
             new FileManagerPlugin({
@@ -216,8 +215,7 @@ function setConfig(config) {
 module.exports = function bundle(config, cli) {
     config = setConfig(config);
     let isProduction = cli.flags.build;
-    let mode = isProduction ? 'production' : 'development';
-    let webpackConfig = initWebpackConfig(config, mode);
+    let webpackConfig = initWebpackConfig(config, isProduction);
 
     function handler(err, stats) {
         if (err) {

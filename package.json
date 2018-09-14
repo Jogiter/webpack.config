@@ -6,7 +6,7 @@
         "thunder": "index.js"
     },
     "scripts": {
-        "lint": "lint ./ --fix",
+        "lint": "eslint ./ --fix",
         "dev": "webpack --mode=development --watch",
         "build": "webpack --mode=production"
     },
@@ -38,7 +38,8 @@
     "devDependencies": {
         "cosmiconfig": "^5.0.6",
         "meow": "^5.0.0",
-        "pre-commit": "^1.2.2"
+        "pre-commit": "^1.2.2",
+        "update-notifier": "^2.5.0"
     },
     "precommit": "lint"
 }
