@@ -112,3 +112,9 @@ module.exports = {
 + [ ] prefetch & preload 插件
 + [ ] performence 性能配置
 + [ ] 添加测试
+
+
+## 阅读链接
+
++ [Webpack 中使用的Node.js API](https://www.jianshu.com/p/d3272c8dd9bf)
++ [Webpack progress using node.js API](https://stackoverflow.com/questions/31052991/webpack-progress-using-node-js-api)

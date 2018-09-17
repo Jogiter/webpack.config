@@ -5,3 +5,7 @@
     width: 650px;
     height: 304px;
 }
+
+body {
+    background: linear-gradient(to bottom right, #fff, #000);
+}

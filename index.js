@@ -205,10 +205,16 @@ module.exports = function bundle(config, cli) {
     let isProduction = Boolean(cli.flags.build);
     let webpackConfig = initWebpackConfig(config, isProduction);
 
-    function handler(err) {
-        if (err) {
-            console.log(err);
-        }
+    function handler(err, stats) {
+        console.log(
+            stats.toString({
+                colors: true,
+                modules: false,
+                children: false,
+                chunks: false,
+                chunkModules: false
+            })
+        );
     }
 
     if (isProduction) {
