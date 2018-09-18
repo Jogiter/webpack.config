@@ -26,7 +26,9 @@ function initWebpackConfig(option, isProduction) {
             chunkFilename: 'chunk[id].js',
             publicPath: publicPath
         },
-        devtool: isProduction ? false : 'eval',
+        devtool: isProduction ? false : 'cheap-module-eval-source-map',
+        // 在第一个错误出现时抛出失败结果，而不是容忍它
+        bail: isProduction,
         optimization: {
             minimize: isProduction
         },
@@ -40,6 +42,7 @@ function initWebpackConfig(option, isProduction) {
                 {
                     test: /\.js$/,
                     enforce: 'pre',
+                    exclude: /node_modules/,
                     use: [
                         {
                             loader: 'eslint-loader',
@@ -57,15 +60,7 @@ function initWebpackConfig(option, isProduction) {
                             loader: 'babel-loader',
                             options: {
                                 presets: ['@babel/preset-env'],
-                                plugins: [
-                                    [
-                                        '@babel/plugin-transform-runtime',
-                                        {
-                                            helpers: false,
-                                            regenerator: true
-                                        }
-                                    ]
-                                ]
+                                plugins: ['@babel/plugin-transform-runtime']
                             }
                         }
                     ]
@@ -141,7 +136,9 @@ function initWebpackConfig(option, isProduction) {
         },
         plugins: [
             new FriendlyErrorsWebpackPlugin(),
-            new CleanWebpackPlugin([__cacheDir]),
+            new CleanWebpackPlugin([__cacheDir], {
+                verbose: false
+            }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
                 template: template,
@@ -163,22 +160,24 @@ function initWebpackConfig(option, isProduction) {
         });
     }
 
-    config = merge(config, {
-        plugins: [
-            new FileManagerPlugin({
-                onEnd: [
-                    {
-                        copy: [
-                            {
-                                source: __cacheDir,
-                                destination: __destination
-                            }
-                        ]
-                    }
-                ]
-            })
-        ]
-    });
+    if (isProduction) {
+        config = merge(config, {
+            plugins: [
+                new FileManagerPlugin({
+                    onEnd: [
+                        {
+                            copy: [
+                                {
+                                    source: __cacheDir,
+                                    destination: __destination
+                                }
+                            ]
+                        }
+                    ]
+                })
+            ]
+        });
+    }
     return config;
 }
 
@@ -188,8 +187,8 @@ function setConfig(config) {
         template: 'index.html',
         hashDigestLength: 6,
         publicPath: '/',
-        __cacheDir: './__dist/',
-        __destination: './dist/'
+        __cacheDir: './__thunder/',
+        __destination: './assets/'
     };
     config = Object.assign({}, DEFAULT, config);
     if (config.__ftp) {
@@ -206,15 +205,17 @@ module.exports = function bundle(config, cli) {
     let webpackConfig = initWebpackConfig(config, isProduction);
 
     function handler(err, stats) {
-        console.log(
-            stats.toString({
-                colors: true,
-                modules: false,
-                children: false,
-                chunks: false,
-                chunkModules: false
-            })
-        );
+        if (!stats.hasErrors() && !stats.hasWarnings()) {
+            console.log(
+                stats.toString({
+                    colors: true,
+                    modules: false,
+                    children: false,
+                    chunks: false,
+                    chunkModules: false
+                })
+            );
+        }
     }
 
     if (isProduction) {

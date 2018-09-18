@@ -78,8 +78,8 @@ module.exports = {
     template: 'index.html',
     publicPath: '/',
     hashDigestLength: 6,
-    __cacheDir: './__dist/',
-    __destination: './dist/',
+    __cacheDir: './__thunder/',
+    __destination: './assets/',
     __ftp: {
         'host': 'host',
         'port': 'port',
@@ -96,8 +96,8 @@ module.exports = {
 |template|可选|[html-webpack-plugin 中的模板页面](https://github.com/jantimon/html-webpack-plugin)|配置文件同级目录下的 `index.html`|
 |publicPath|可选|[此输出目录对应的公开 URL](https://webpack.docschina.org/configuration/output/#output-publicpath)|`/`|
 |hashDigestLength|可选|散列摘要的前缀长度|6|
-|__cacheDir|可选|缓存打包后生成的文件，用于上传及拷贝到上线目录|`./__dist/`|
-|__destination|可选|打包后实际生成目录|`./dist/`|
+|__cacheDir|可选|缓存打包后生成的文件，用于上传及拷贝到上线目录|`./__thunder/`|
+|__destination|可选|打包后实际生成目录|`./assets/`|
 |__ftp|可选|ftp 配置，参考[node-scp2](https://github.com/spmjs/node-scp2)|默认不开启ftp|
 
 
@@ -111,6 +111,8 @@ module.exports = {
 + [ ] 本地的 `ssi` 使用 ssi-loader 打包到页面中，减少 `ssi` 的使用。
 + [ ] prefetch & preload 插件
 + [ ] performence 性能配置
++ [ ] `.browserslistrc` 配置
++ [ ] `.eslintrc` 配置
 + [ ] 添加测试
 
 
@@ -118,3 +120,5 @@ module.exports = {
 
 + [Webpack 中使用的Node.js API](https://www.jianshu.com/p/d3272c8dd9bf)
 + [Webpack progress using node.js API](https://stackoverflow.com/questions/31052991/webpack-progress-using-node-js-api)
++ [@babel/preset-env](https://babeljs.io/docs/en/next/babel-preset-env.html)
++ [@babel/plugin-transform-runtime](https://babeljs.io/docs/en/next/babel-plugin-transform-runtime.html)

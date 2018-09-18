@@ -6,5 +6,5 @@ Thumbs.db
 node_modules/
 bower_components/
 .deploy*/
-dist
-__dist
+assets
+__thunder

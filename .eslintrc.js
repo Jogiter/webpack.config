@@ -13,7 +13,8 @@ module.exports = {
   rules: {
     indent: ["warn", 4],
     quotes: ["error", "single"],
-    semi: ["error", "always"]
+    semi: ["error", "always"],
+    "no-console": ["warn"]
   },
   globals: {
     $: true,

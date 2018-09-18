@@ -3,6 +3,6 @@ module.exports = {
     template: 'index.html',
     publicPath: '/',
     hashDigestLength: 12,
-    __cacheDir: './__dist/',
-    __destination: './dist/'
+    __cacheDir: './__thunder/',
+    __destination: './assets/'
 };
