@@ -42,9 +42,8 @@ if (!Object.keys(cli.flags).length) {
 }
 
 const result = explorer.searchSync();
-if (!result) {
-    console.log('thunder config file is not found, please check!');
-    process.exit(0);
-}
 
-bundle(result.config, cli);
+let config = result ? result.config : {};
+let isProduction = Boolean(cli.flags.build);
+
+bundle(config, isProduction);

@@ -183,8 +183,8 @@ function initWebpackConfig(option, isProduction) {
 
 function setConfig(config) {
     const DEFAULT = {
-        entry: 'js/index.js',
-        template: 'index.html',
+        entry: './js/index.js',
+        template: './index.html',
         hashDigestLength: 6,
         publicPath: '/',
         __cacheDir: './__thunder/',
@@ -199,12 +199,15 @@ function setConfig(config) {
     return config;
 }
 
-module.exports = function bundle(config, cli) {
+module.exports = function bundle(config, isProduction) {
     config = setConfig(config);
-    let isProduction = Boolean(cli.flags.build);
     let webpackConfig = initWebpackConfig(config, isProduction);
 
     function handler(err, stats) {
+        if (err) {
+            console.log(err);
+            process.exit();
+        }
         if (!stats.hasErrors() && !stats.hasWarnings()) {
             console.log(
                 stats.toString({
