@@ -75,15 +75,14 @@ module.exports = {
 ```js
 module.exports = {
     entry: './js/index.js',
-    template: 'index.html',
+    template: './index.html',
     publicPath: '/',
     hashDigestLength: 6,
     __cacheDir: './__thunder/',
     __destination: './assets/',
     __ftp: {
         'host': 'host',
-        'port': 'port',
-        'user': 'user',
+        'username': 'username',
         'password': 'password',
         'path': 'remotepath'
     }
@@ -114,6 +113,7 @@ module.exports = {
 + [ ] `.browserslistrc` 配置
 + [ ] `.eslintrc` 配置
 + [ ] 添加测试
++ [ ] css minify
 
 
 ## 阅读链接
