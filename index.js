@@ -205,8 +205,7 @@ module.exports = function bundle(config, isProduction) {
 
     function handler(err, stats) {
         if (err) {
-            console.log(err);
-            process.exit();
+            throw console.log(err);
         }
         if (!stats.hasErrors() && !stats.hasWarnings()) {
             console.log(
