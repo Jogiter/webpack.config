@@ -103,6 +103,11 @@ module.exports = {
 ## 注意事项
 
 1. 打包后会生成 `__cacheDir` 和 `__destination` 目录，请在 `.gitignore` 中忽略掉这 2 个文件夹。
+2. [context](https://webpack.docschina.org/configuration/entry-context/#context) : 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader。默认使用当前目录，但是推荐在配置中传递一个值。这使得你的配置独立于 CWD(current working directory - 当前执行路径)。
+
+>因此无法将 `webpack` 全局安装到 `cli` 中
+
+3. 打包后兼容 ie8，使用 `html-webpack-plugin` 时，不注入到页面中即可
 
 
 ## TODO
