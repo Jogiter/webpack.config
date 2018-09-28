@@ -1,4 +1,4 @@
-# thunder-cli
+# webpack.config
 
 ## .editorConfig
 
