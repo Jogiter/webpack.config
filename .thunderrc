@@ -1,0 +1,8 @@
+{
+    "entry": "./demo/js/index.js",
+    "template": "./demo/index.html",
+    "hashDigestLength": 6,
+    "publicPath": "/",
+    "__cacheDir": "./__thunder/",
+    "__destination": "./assets/"
+}

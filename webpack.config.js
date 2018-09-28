@@ -1,11 +1,20 @@
 const path = require('path');
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackFtpUpload = require('webpack-ftp-upload-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const cosmiconfig = require('cosmiconfig');
+const explorer = cosmiconfig('thunder');
+
+let config = getThunderConfig();
+let isProduction = process.env.NODE_ENV === 'production';
+
+function getThunderConfig() {
+    const result = explorer.searchSync();
+    return result ? result.config : {};
+}
 
 function initWebpackConfig(option, isProduction) {
     let hashDigestLength = option.hashDigestLength;
@@ -119,14 +128,6 @@ function initWebpackConfig(option, isProduction) {
                                 attrs: ['img:src', 'link:href']
                             }
                         }
-                        // {
-                        //   loader: 'ssi-loader',
-                        //   options: {
-                        //     locations: {
-                        //       include: 'http://jinrong.xunlei.com'
-                        //     }
-                        //   }
-                        // }
                     ]
                 }
             ]
@@ -199,36 +200,5 @@ function setConfig(config) {
     return config;
 }
 
-module.exports = function bundle(config, isProduction) {
-    config = setConfig(config);
-    let webpackConfig = initWebpackConfig(config, isProduction);
 
-    function handler(err, stats) {
-        if (err) {
-            throw console.log(err);
-        }
-        if (!stats.hasErrors() && !stats.hasWarnings()) {
-            console.log(
-                stats.toString({
-                    colors: true,
-                    modules: false,
-                    children: false,
-                    chunks: false,
-                    chunkModules: false
-                })
-            );
-        }
-    }
-
-    if (isProduction) {
-        webpack(webpackConfig).run(handler);
-    } else {
-        webpack(webpackConfig).watch(
-            {
-                aggregateTimeout: 300,
-                poll: 1000
-            },
-            handler
-        );
-    }
-};
+module.exports = initWebpackConfig(setConfig(config), isProduction);
