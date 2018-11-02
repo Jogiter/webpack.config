@@ -37,73 +37,46 @@ function initWebpackConfig (option, isProduction) {
     devtool: isProduction ? false : 'cheap-module-eval-source-map',
     // 在第一个错误出现时抛出失败结果，而不是容忍它
     bail: isProduction,
-    optimization: {
-      minimize: isProduction
-    },
     // 从输出的 bundle 中排除依赖
     externals: {
       jquery: 'jQuery',
       zepto: 'Zepto'
     },
     module: {
-      rules: [
-        {
-          test: /\.js$/,
-          enforce: 'pre',
-          exclude: /node_modules/,
-          loader: 'eslint-loader',
-          options: {
-            formatter: require('eslint-friendly-formatter'),
-            fix: true
-          }
-        },
+      loaders: [
+        // {
+        //   test: /\.js$/,
+        //   enforce: 'pre',
+        //   exclude: /node_modules/,
+        //   loader: 'eslint-loader',
+        //   options: {
+        //     formatter: require('eslint-friendly-formatter'),
+        //     fix: true
+        //   }
+        // },
         {
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env'],
-                plugins: ['@babel/plugin-transform-runtime']
-              }
-            }
-          ]
+          loader: 'babel',
+          query: {
+            presets: ['stage-2', 'es2015']
+          }
         },
         {
           test: /\.css$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: `[path][name].[ext]?v=[hash:${hashDigestLength}]`
-              }
-            },
+          loaders: [
+            `file-loader?name=[path][name].[ext]?v=[hash:${hashDigestLength}]`,
             'extract-loader',
             'css-loader'
           ]
         },
         {
           test: /\.(png|jp(e)?g|gif|svg)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: `[path][name].[ext]?v=[hash:${hashDigestLength}]`
-              }
-            }
-          ]
+          loader: `file-loader?name=[path][name].[ext]?v=[hash:${hashDigestLength}]`
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: `[path][name].[ext]?v=[hash:${hashDigestLength}]`
-              }
-            }
-          ]
+          loader: `file-loader?name=[path][name].[ext]?v=[hash:${hashDigestLength}]`
         },
         {
           test: /\.tpl/,
@@ -111,25 +84,18 @@ function initWebpackConfig (option, isProduction) {
         },
         {
           test: /\.html/,
-          use: [
-            {
-              loader: 'html-loader',
-              options: {
-                minimize: true,
-                removeComments: false, // 保留 ssi
-                removeAttributeQuotes: false, // 保留引号
-                collapseWhitespace: true,
-                // more options:
-                // https://github.com/kangax/html-minifier#options-quick-reference
-                attrs: ['img:src', 'link:href']
-              }
-            }
-          ]
+          loader: 'html-loader'
         }
       ]
     },
-    resolve: {
-      extensions: ['.js', '.vue']
+    htmlLoader: {
+      minimize: true,
+      removeComments: false, // 保留 ssi
+      removeAttributeQuotes: false, // 保留引号
+      collapseWhitespace: true,
+      // more options:
+      // https://github.com/webpack-contrib/html-loader/blob/v0.4.4/index.js#L100-L113
+      attrs: ['img:src', 'link:href']
     },
     plugins: [
       new FriendlyErrorsWebpackPlugin(),

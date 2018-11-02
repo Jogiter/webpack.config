@@ -7,7 +7,7 @@
  * @param  {times}  min   倒计时的分钟数
  * @param  {times}  sec   倒计时的秒数
  */
-export function countdown (seconds, callback) {
+function countdown (seconds, callback) {
   var timer
   // fix floating seconds
   seconds = Math.round(seconds)
@@ -54,7 +54,7 @@ export function countdown (seconds, callback) {
  * @param {String} value query 中的值
  * @param {String} url   url 字符串，默认 location.href
  */
-export function setParam (key, value, url = location.href) {
+function setParam (key, value, url = location.href) {
   let reg = new RegExp('(' + key + ')=([^&]*)', 'ig')
   let result = reg.exec(url)
   if (result) {
@@ -76,8 +76,14 @@ export function setParam (key, value, url = location.href) {
  * @param  {String} url url 字符串，默认 location.href
  * @return {String}     key 对应的值
  */
-export function getParam (key, url = location.href) {
+function getParam (key, url = location.href) {
   let reg = new RegExp('(' + key + ')=([^&]*)', 'ig')
   let result = reg.exec(url)
   return result ? result[2] : ''
+}
+
+module.exports = {
+  setParam,
+  getParam,
+  countdown
 }

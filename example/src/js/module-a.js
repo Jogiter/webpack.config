@@ -1,1 +1,3 @@
-export const msg = 'module a'
+const msg = 'module a'
+
+module.exports = msg

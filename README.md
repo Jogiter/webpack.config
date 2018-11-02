@@ -11,7 +11,7 @@ root = true
 charset = utf-8
 end_of_line = lf
 indent_style = space
-indent_size = 4
+indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
 ```
@@ -106,10 +106,13 @@ module.exports = {
 
 1. 打包后会生成 `__cacheDir` 和 `__destination` 目录，请在 `.gitignore` 中忽略掉这 2 个文件夹。
 2. [context](https://webpack.docschina.org/configuration/entry-context/#context) : 基础目录，绝对路径，用于从配置中解析入口起点(entry point)和 loader。默认使用当前目录，但是推荐在配置中传递一个值。这使得你的配置独立于 CWD(current working directory - 当前执行路径)。
+3. 代码中不许与使用 `import`&`export` 语法，需要改成 `module.exports/exports`
 
 >因此无法将 `webpack` 全局安装到 `cli` 中
 
 3. 打包后兼容 ie8，使用 `html-webpack-plugin` 时，不注入到页面中即可
+4. [issue](https://github.com/webpack-contrib/html-loader/blob/v0.4.5/index.js#L29)  缺少 `"link:href"`
+5. `webpack` 打包时，使用默认的 `-p` 和 `-d` 命令进行压缩处理，不用单独配置压缩插件
 
 
 ## TODO
@@ -121,7 +124,24 @@ module.exports = {
 + [ ] `.eslintrc` 配置
 + [ ] 添加测试
 + [ ] css minify
++ [ ] eslint 接入
++ [ ] 更新 webpack 配置，不使用最新语法，仅仅打包，尝试是否兼容
 
+
+## devDependencies
+
+```json
+{
+  "html-loader": "0.4.4",
+  "webpack": "^1.13.2",
+  "html-webpack-plugin": "1.1.0",
+  "webpack-merge": "0.17.0",
+  "babel-loader": "6.1.0",
+  "babel-preset-es2015": "^6.24.1",
+  "babel-preset-stage-2": "^6.24.1",
+  "file-loader": "0.11.2",
+}
+```
 
 ## 阅读链接
 
