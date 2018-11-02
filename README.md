@@ -53,6 +53,8 @@ module.exports = {
 };
 ```
 
+>[Option fix: true not working on 2.1.1#248](https://github.com/webpack-contrib/eslint-loader/issues/248)
+
 ## 配置文件
 
 配置文件名 `thunder`，[搜索位置](https://github.com/davidtheclark/cosmiconfig#cosmiconfigoptions)如下：

@@ -1,6 +1,6 @@
 {
-    "entry": "./demo/js/index.js",
-    "template": "./demo/index.html",
+    "entry": "./example/src/js/index.js",
+    "template": "./example/src/index.html",
     "hashDigestLength": 6,
     "publicPath": "/",
     "__cacheDir": "./__thunder/",
