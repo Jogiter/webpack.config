@@ -200,5 +200,6 @@ function setConfig(config) {
     return config;
 }
 
+let thunderConfig = getThunderConfig()
 
-module.exports = initWebpackConfig(setConfig(config), isProduction);
+module.exports = initWebpackConfig(setConfig(thunderConfig), isProduction);
