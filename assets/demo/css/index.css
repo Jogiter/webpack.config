@@ -1,0 +1,11 @@
+.img {
+    background-image: url(/demo/image/fdr.jpg?v=74c913);
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    width: 650px;
+    height: 304px;
+}
+
+body {
+    background: linear-gradient(to bottom right, #fff, #000);
+}

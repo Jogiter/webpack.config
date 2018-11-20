@@ -7,6 +7,4 @@ node_modules/
 bower_components/
 .deploy*/
 
-assets
 __thunder
-demo

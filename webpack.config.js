@@ -1,19 +1,12 @@
 const path = require('path')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackFtpUpload = require('webpack-ftp-upload-plugin')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
-const cosmiconfig = require('cosmiconfig')
-const explorer = cosmiconfig('thunder')
-
-let isProduction = process.env.NODE_ENV === 'production'
-
-function getThunderConfig () {
-  const result = explorer.searchSync()
-  return result ? result.config : {}
-}
+const debug = console
 
 function initWebpackConfig (option, isProduction) {
   let hashDigestLength = option.hashDigestLength
@@ -51,11 +44,14 @@ function initWebpackConfig (option, isProduction) {
           test: /\.js$/,
           enforce: 'pre',
           exclude: /node_modules/,
-          loader: 'eslint-loader',
-          options: {
-            formatter: require('eslint-friendly-formatter'),
-            fix: true
-          }
+          use: [
+            {
+              loader: 'eslint-loader',
+              options: {
+                fix: true
+              }
+            }
+          ]
         },
         {
           test: /\.js$/,
@@ -124,6 +120,14 @@ function initWebpackConfig (option, isProduction) {
                 attrs: ['img:src', 'link:href']
               }
             }
+            // {
+            //   loader: 'ssi-loader',
+            //   options: {
+            //     locations: {
+            //       include: 'http://jinrong.xunlei.com'
+            //     }
+            //   }
+            // }
           ]
         }
       ]
@@ -196,6 +200,36 @@ function setConfig (config) {
   return config
 }
 
-let thunderConfig = getThunderConfig()
+module.exports = function bundle (config, isProduction) {
+  config = setConfig(config)
+  let webpackConfig = initWebpackConfig(config, isProduction)
 
-module.exports = initWebpackConfig(setConfig(thunderConfig), isProduction)
+  function handler (err, stats) {
+    if (err) {
+      throw debug.log(err)
+    }
+    if (!stats.hasErrors() && !stats.hasWarnings()) {
+      debug.log(
+        stats.toString({
+          colors: true,
+          modules: false,
+          children: false,
+          chunks: false,
+          chunkModules: false
+        })
+      )
+    }
+  }
+
+  if (isProduction) {
+    webpack(webpackConfig).run(handler)
+  } else {
+    webpack(webpackConfig).watch(
+      {
+        aggregateTimeout: 300,
+        poll: 1000
+      },
+      handler
+    )
+  }
+}
