@@ -16,8 +16,9 @@ const cli = meow(
     --help, -h        show usage information
     --version, -V     show the version text
     --watch, -w       equal to 'webpack mode=development --watch'
-    --build           equal to 'webpack mode=production'
-`, {
+    --build, -p       equal to 'webpack mode=production'
+`,
+  {
     flags: {
       version: {
         type: 'boolean',
@@ -28,6 +29,9 @@ const cli = meow(
       },
       watch: {
         alias: 'w'
+      },
+      build: {
+        alias: 'p'
       }
     },
     description: false

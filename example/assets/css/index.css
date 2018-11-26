@@ -1,0 +1,13 @@
+body {
+    background-image: url(/a/b/c/images/timg.jpg?v=b4265e);
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.img>img {
+    width: 300px;
+}
+h2>span {
+    margin-left: 15px;
+}
