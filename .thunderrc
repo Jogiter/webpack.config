@@ -1,8 +1,8 @@
 {
-    "entry": "./example/src/js/index.js",
-    "template": "./example/src/index.html",
-    "hashDigestLength": 6,
-    "publicPath": "/",
-    "__cacheDir": "./__thunder/",
-    "__destination": "./assets/"
+  entry: './js/index.js',
+  template: './index.html',
+  "hashDigestLength": 6,
+  "publicPath": "/",
+  "__cacheDir": "./__thunder/",
+  "__destination": "./assets/"
 }

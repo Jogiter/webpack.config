@@ -48,6 +48,7 @@ if (!Object.keys(cli.flags).length) {
 const result = explorer.searchSync()
 
 let config = result ? result.config : {}
-let isProduction = Boolean(cli.flags.build)
+
+let isProduction = Boolean(cli.flags.build || cli.flags.p)
 
 bundle(config, isProduction)
