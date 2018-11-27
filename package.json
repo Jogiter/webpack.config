@@ -1,6 +1,6 @@
 {
     "name": "thunder-cli",
-    "version": "1.0.9",
+    "version": "1.10.0",
     "license": "MIT",
     "bin": {
         "thunder": "cli.js"
