@@ -208,17 +208,15 @@ module.exports = function bundle (config, isProduction) {
     if (err) {
       throw debug.log(err)
     }
-    if (!stats.hasErrors() && !stats.hasWarnings()) {
-      debug.log(
-        stats.toString({
-          colors: true,
-          modules: false,
-          children: false,
-          chunks: false,
-          chunkModules: false
-        })
-      )
-    }
+    debug.log(
+      stats.toString({
+        colors: true,
+        modules: false,
+        children: false,
+        chunks: false,
+        chunkModules: false
+      })
+    )
   }
 
   if (isProduction) {
