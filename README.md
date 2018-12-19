@@ -1,5 +1,21 @@
 # webpack.config
 
+## usage
+
+```sh
+# 创建 package.json
+yarn init -y
+# 安装依赖
+yarn add thunder-cli
+# 添加 .eslintrc.js 配置
+touch .eslintrc.js
+# 添加 .thunderrc.js 配置
+touch .thunderrc.js
+# 编译
+thunder --watch
+thunder --build
+```
+
 ## .editorConfig
 
 ```.editorConfig
@@ -101,6 +117,17 @@ module.exports = {
 |__destination|可选|打包后实际生成目录|`./assets/`|
 |__ftp|可选|ftp 配置，参考[node-scp2](https://github.com/spmjs/node-scp2)|默认不开启ftp|
 
+**ftp配置建议：**
+
+在配置文件中添加 `__ftp` 配置，但是将 `username`、`password` 移除；执行命令时执行
+
+```sh
+# 进入项目所在目录
+cd workspacedir
+# 手动添加用户名和密码
+thunder --watch --username=username --password=password
+thunder --build --username=username --password=password
+```
 
 ## 注意事项
 
@@ -121,6 +148,7 @@ module.exports = {
 + [ ] `.eslintrc` 配置
 + [ ] 添加测试
 + [ ] css minify
++ [ ] image optimization
 
 
 ## 阅读链接

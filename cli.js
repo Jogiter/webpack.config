@@ -11,12 +11,16 @@ const pkg = require('./package.json')
 
 const cli = meow(
   `
-  Usage: thunder [flag]
+  Usage: thunder [option]
   Options:
     --help, -h        show usage information
     --version, -V     show the version text
     --watch, -w       equal to 'webpack mode=development --watch'
     --build, -p       equal to 'webpack mode=production'
+    --host            set ftp host
+    --username        set ftp username
+    --password        set ftp password
+    --path            set ftp path
 `,
   {
     flags: {
@@ -32,6 +36,18 @@ const cli = meow(
       },
       build: {
         alias: 'p'
+      },
+      host: {
+        type: 'string'
+      },
+      username: {
+        type: 'string'
+      },
+      password: {
+        type: 'string'
+      },
+      path: {
+        type: 'string'
       }
     },
     description: false
@@ -49,6 +65,4 @@ const result = explorer.searchSync()
 
 let config = result ? result.config : {}
 
-let isProduction = Boolean(cli.flags.build || cli.flags.p)
-
-bundle(config, isProduction)
+bundle(config, cli.flags)

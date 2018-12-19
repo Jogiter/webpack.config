@@ -27,7 +27,7 @@ function initWebpackConfig (option, isProduction) {
       chunkFilename: 'chunk[id].js',
       publicPath: publicPath
     },
-    devtool: isProduction ? false : 'cheap-module-eval-source-map',
+    devtool: isProduction ? false : 'source-map',
     // 在第一个错误出现时抛出失败结果，而不是容忍它
     bail: isProduction,
     optimization: {
@@ -120,14 +120,6 @@ function initWebpackConfig (option, isProduction) {
                 attrs: ['img:src', 'link:href']
               }
             }
-            // {
-            //   loader: 'ssi-loader',
-            //   options: {
-            //     locations: {
-            //       include: 'http://jinrong.xunlei.com'
-            //     }
-            //   }
-            // }
           ]
         }
       ]
@@ -182,7 +174,7 @@ function initWebpackConfig (option, isProduction) {
   return config
 }
 
-function setConfig (config) {
+function setConfig (config, flags) {
   const DEFAULT = {
     entry: './js/index.js',
     template: './index.html',
@@ -196,12 +188,26 @@ function setConfig (config) {
     Object.assign(config.__ftp, {
       local: path.join(process.cwd(), config.__cacheDir)
     })
+    if (flags.host) {
+      config.__ftp.host = flags.host
+    }
+    if (flags.username) {
+      config.__ftp.username = flags.username
+    }
+    if (flags.password) {
+      config.__ftp.password = flags.password
+    }
+    if (flags.path) {
+      config.__ftp.path = flags.path
+    }
   }
   return config
 }
 
-module.exports = function bundle (config, isProduction) {
-  config = setConfig(config)
+module.exports = function bundle (config, flags) {
+  let isProduction = Boolean(flags.build || flags.p)
+
+  config = setConfig(config, flags)
   let webpackConfig = initWebpackConfig(config, isProduction)
 
   function handler (err, stats) {
