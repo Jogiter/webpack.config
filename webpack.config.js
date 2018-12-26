@@ -87,6 +87,15 @@ function initWebpackConfig (option, isProduction) {
               options: {
                 name: `[path][name].[ext]?v=[hash:${hashDigestLength}]`
               }
+            },
+            {
+              loader: 'img-loader',
+              options: {
+                plugins: [
+                  require('imagemin-mozjpeg')(),
+                  require('imagemin-pngquant')()
+                ]
+              }
             }
           ]
         },

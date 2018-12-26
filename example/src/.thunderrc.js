@@ -1,6 +1,6 @@
 module.exports = {
     "hashDigestLength": 6,
-    "publicPath": "/a/b/c/",
+    "publicPath": "/",
     "__cacheDir": "./__thunder/",
     "__destination": "../assets/"
 }
