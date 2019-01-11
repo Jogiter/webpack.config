@@ -1,6 +1,6 @@
 {
   "name": "thunder-cli",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "license": "MIT",
   "bin": {
     "thunder": "cli.js"
@@ -18,6 +18,7 @@
     "babel-loader": "^8.0.2",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
+    "cosmiconfig": "^5.0.6",
     "css-loader": "^1.0.0",
     "eslint": "^5.5.0",
     "eslint-config-standard": "^12.0.0",
@@ -37,15 +38,14 @@
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^6.0.1",
     "img-loader": "^3.0.1",
+    "meow": "^5.0.0",
     "pre-commit": "^1.2.2",
     "raw-loader": "^0.5.1",
+    "update-notifier": "^2.5.0",
     "webpack": "^4.18.0",
     "webpack-cli": "^3.1.0",
     "webpack-ftp-upload-plugin": "^1.0.3",
-    "cosmiconfig": "^5.0.6",
-    "meow": "^5.0.0",
-    "webpack-merge": "^4.1.4",
-    "update-notifier": "^2.5.0"
+    "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
     "ava": "^0.25.0",
