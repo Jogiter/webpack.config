@@ -126,7 +126,7 @@ function initWebpackConfig (option, isProduction) {
                 collapseWhitespace: true,
                 // more options:
                 // https://github.com/kangax/html-minifier#options-quick-reference
-                attrs: ['img:src', 'link:href']
+                attrs: ['img:src', 'img:data-src', 'link:href']
               }
             }
           ]
